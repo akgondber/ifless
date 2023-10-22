@@ -1,0 +1,12 @@
+{
+	"ids": {
+		"github": "akgondber/ifless",
+		"npm": "ifless"
+	},
+	"templates": [
+		{
+			"name": "install",
+			"template": "Run `npm install {{ ids.npm }} to install this library!"
+		}
+	]
+}

@@ -1,0 +1,57 @@
+{
+	"name": "ifless",
+	"version": "1.0.0",
+	"description": "Get rid of if statements in your code by using convenient api",
+	"homepage": "https://github.com/akgondber/ifless",
+	"repository": "akgondber/ifless",
+	"type": "module",
+  "files": [
+    "dist"
+  ],
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"exports": {
+		"require": "./dist/index.js",
+		"import": "./dist/index.mjs"
+	},
+	"scripts": {
+		"test": "vitest --reporter=dot",
+		"lint": "eslint src",
+		"lint:fix": "eslint src --fix",
+		"build": "tsup src/index.ts --format cjs,esm --dts-resolve",
+		"prettify": "prettier . --write"
+	},
+	"keywords": [
+		"ifless",
+		"refactor",
+		"code",
+		"maintenance",
+		"bestpractices",
+		"improvement",
+		"if",
+		"api",
+		"class"
+	],
+	"author": "Rushan Alyautdinov <akgondber@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"@typescript-eslint/parser": "^6.21.0",
+		"eslint": "^8.2.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-xo": "^0.44.0",
+		"eslint-plugin-import": "^2.25.3",
+		"prettier": "3.2.5",
+		"tsup": "^8.0.2",
+		"vitest": "^0.34.6"
+	},
+	"prettier": {
+		"useTabs": true,
+		"semi": true,
+		"singleQuote": true,
+		"quoteProps": "as-needed",
+		"bracketSpacing": false,
+		"arrowParens": "avoid",
+		"trailingComma": "all"
+	}
+}
