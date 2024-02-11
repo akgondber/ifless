@@ -29,11 +29,39 @@ test('returns true when value is english alphabet char', () => {
 	expect(result).to;
 });
 
-test('returns true when the subject is english alphabet char', () => {
-	const iflessString = new IflessString('a');
+test('returns false when the subject is not english alphabet char', () => {
+	const iflessString = new IflessString('4');
 
 	const result = iflessString.isEnglishChar();
+	expect(result).toEqual(false);
+});
+
+test('returns true when the subject is english vowel char', () => {
+	const iflessString = new IflessString('y');
+
+	const result = iflessString.isEnglishVowelChar();
 	expect(result).toEqual(true);
+});
+
+test('returns false when the subject is not english vowel char', () => {
+	const iflessString = new IflessString('g');
+
+	const result = iflessString.isEnglishVowelChar();
+	expect(result).toEqual(false);
+});
+
+test('returns true when the subject is english consonant char', () => {
+	const iflessString = new IflessString('r');
+
+	const result = iflessString.isEnglishConsonantChar();
+	expect(result).toEqual(true);
+});
+
+test('returns false when the subject is not english consonant char', () => {
+	const iflessString = new IflessString('a');
+
+	const result = iflessString.isEnglishConsonantChar();
+	expect(result).toEqual(false);
 });
 
 test('returns true when the subject is numeric', () => {

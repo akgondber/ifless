@@ -29,7 +29,8 @@
     "lint:fix": "eslint src --fix",
     "build": "tsup src/index.ts --format cjs,esm --dts-resolve",
     "prettify": "prettier . --write",
-    "release": "release-it"
+    "release": "release-it",
+    "typedoc": "typedoc src/index.ts"
   },
   "keywords": [
     "ifless",
@@ -53,6 +54,7 @@
     "prettier": "3.2.5",
     "release-it": "^17.0.3",
     "tsup": "^8.0.2",
+    "typedoc": "^0.25.8",
     "vitest": "^1.2.2"
   },
   "prettier": {

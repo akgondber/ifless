@@ -5,6 +5,8 @@ export const isEnglishChar = (char: string): boolean => (char >= 'a' && char <= 
 
 export const isNumeric = (value: string): boolean => !Number.isNaN(value) && !Number.isNaN(Number.parseFloat(value));
 
+const charIsVowel = (char: string) => ['a', 'e', 'i', 'o', 'u', 'y'].includes(char.toLowerCase());
+
 class IflessString {
 	private _result: unknown;
 	private _subject: string;
@@ -85,8 +87,30 @@ class IflessString {
 		return false;
 	}
 
+	isEnglishVowelChar(): boolean {
+		if (isEnglishChar(this._subject) && charIsVowel(this._subject.toLowerCase())) {
+			return true;
+		}
+
+		return false;
+	}
+
+	isEnglishConsonantChar(): boolean {
+		if (isEnglishChar(this._subject) && !charIsVowel(this._subject.toLowerCase())) {
+			return true;
+		}
+
+		return false;
+	}
+
 	includesEnglishChar(): boolean {
-		return [...this._subject].some((char: string) => isEnglishChar(char));
+		for (const char of this._subject) {
+			if (isEnglishChar(char)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	reset(): IflessString {
