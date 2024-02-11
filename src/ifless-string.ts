@@ -1,6 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 type Condition = (T: string) => boolean;
 
+export const isEnglishChar = (char: string): boolean => (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
+
+export const isNumeric = (value: string): boolean => !Number.isNaN(value) && !Number.isNaN(Number.parseFloat(value));
+
 class IflessString {
 	private _result: unknown;
 	private _subject: string;
@@ -59,6 +63,30 @@ class IflessString {
 		}
 
 		return this;
+	}
+
+	whenOneOf(searchStrings: string[], thenResult: unknown): IflessString {
+		if (!this.resultIsDefined() && searchStrings.includes(this._subject)) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
+	isNumeric(): boolean {
+		return isNumeric(this._subject);
+	}
+
+	isEnglishChar(): boolean {
+		if (isEnglishChar(this._subject)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	includesEnglishChar(): boolean {
+		return [...this._subject].some((char: string) => isEnglishChar(char));
 	}
 
 	reset(): IflessString {
