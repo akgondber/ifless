@@ -1,6 +1,6 @@
 {
   "name": "ifless",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Get rid of if statements in your code by using convenient api",
   "homepage": "https://github.com/akgondber/ifless",
   "repository": "akgondber/ifless",
