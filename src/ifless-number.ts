@@ -77,6 +77,30 @@ class IflessNumber {
 		return this;
 	}
 
+	whenNegative(thenResult: unknown): IflessNumber {
+		if (!this.resultIsDefined() && this._subject < 0) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
+	whenPositive(thenResult: unknown): IflessNumber {
+		if (!this.resultIsDefined() && this._subject > 0) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
+	whenZero(thenResult: unknown): IflessNumber {
+		if (!this.resultIsDefined() && this._subject === 0) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
 	reset(): IflessNumber {
 		this._result = undefined;
 

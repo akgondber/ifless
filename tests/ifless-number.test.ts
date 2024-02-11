@@ -73,6 +73,48 @@ test("doesn't set a value when source value between min and max", () => {
 	expect(result).toBeUndefined();
 });
 
+test('sets a value when source value is negative', () => {
+	const iflessNumber = new IflessNumber(-2);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenNegative(valueWhenConforms).result;
+	expect(result).toEqual(valueWhenConforms);
+});
+
+test("doesn't set a value when source value is not negative", () => {
+	const iflessNumber = new IflessNumber(2);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenNegative(valueWhenConforms).result;
+	expect(result).toBeUndefined();
+});
+
+test('sets a value when source value is positive', () => {
+	const iflessNumber = new IflessNumber(2);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenPositive(valueWhenConforms).result;
+	expect(result).toEqual(valueWhenConforms);
+});
+
+test("doesn't set a value when source value is not positive", () => {
+	const iflessNumber = new IflessNumber(-6);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenPositive(valueWhenConforms).result;
+	expect(result).toBeUndefined();
+});
+
+test('sets a value when source value is zero', () => {
+	const iflessNumber = new IflessNumber(0);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenZero(valueWhenConforms).result;
+	expect(result).toEqual(valueWhenConforms);
+});
+
+test("doesn't set a value when source value is not zero", () => {
+	const iflessNumber = new IflessNumber(8);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenZero(valueWhenConforms).result;
+	expect(result).toBeUndefined();
+});
+
 test("doesn't set a value when source value does not satisfies less than comparision", () => {
 	const iflessNumber = new IflessNumber(10);
 	const valueWhenConforms = 'bar';
