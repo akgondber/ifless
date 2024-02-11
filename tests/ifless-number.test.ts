@@ -59,6 +59,20 @@ test('sets a value when source value equals to comparable number', () => {
 	expect(result).toEqual(valueWhenConforms);
 });
 
+test('sets a value when source value between min and max', () => {
+	const iflessNumber = new IflessNumber(10);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenBetween(0, 12, valueWhenConforms).result;
+	expect(result).toEqual(valueWhenConforms);
+});
+
+test("doesn't set a value when source value between min and max", () => {
+	const iflessNumber = new IflessNumber(15);
+	const valueWhenConforms = 'bar';
+	const result = iflessNumber.whenBetween(0, 12, valueWhenConforms).result;
+	expect(result).toBeUndefined();
+});
+
 test("doesn't set a value when source value does not satisfies less than comparision", () => {
 	const iflessNumber = new IflessNumber(10);
 	const valueWhenConforms = 'bar';

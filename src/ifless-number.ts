@@ -69,6 +69,14 @@ class IflessNumber {
 		return this;
 	}
 
+	whenBetween(min: number, max: number, thenResult: unknown): IflessNumber {
+		if (!this.resultIsDefined() && this._subject >= min && this._subject <= max) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
 	reset(): IflessNumber {
 		this._result = undefined;
 
