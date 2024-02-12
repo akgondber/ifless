@@ -102,7 +102,7 @@ console.log(result3); // subject.bar.baz ends with "ux"
 
 ### IflessString methods
 
-![](C:\fep\bckn\cons\mylibs\ifless\media\IflessStringMethods.png)
+![](media/IflessStringMethods.png)
 
 ## License
 
