@@ -46,6 +46,8 @@
   "author": "Rushan Alyautdinov <akgondber@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash.isequal": "^4.5.8",
+    "@types/lodash.result": "^4.5.9",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.2.0",
@@ -55,6 +57,7 @@
     "release-it": "^17.0.3",
     "tsup": "^8.0.2",
     "typedoc": "^0.25.8",
+    "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   },
   "prettier": {
@@ -65,5 +68,9 @@
     "bracketSpacing": false,
     "arrowParens": "avoid",
     "trailingComma": "all"
+  },
+  "dependencies": {
+    "lodash.isequal": "^4.5.0",
+    "lodash.result": "^4.5.2"
   }
 }

@@ -1,5 +1,5 @@
 import {expect, test} from 'vitest';
-import Ifless, {IflessNumber, IflessString, IflessObject} from '../src';
+import Ifless, {IflessNumber, IflessString, IflessObject, buildIfless} from '../src';
 
 test('exports IflessNumber', () => {
 	expect(IflessNumber).toBeDefined();
@@ -24,4 +24,11 @@ test('sets when condition is true', () => {
 	const valueWhenConforms = 'baz';
 	ifless.when(() => true, valueWhenConforms);
 	expect(ifless.result).toEqual(valueWhenConforms);
+});
+
+test('expors IflessObject', () => {
+	const instance = buildIfless({ foo: 'baz' });
+	const valueWhenConforms = 'baz';
+	const result = instance.whenHasKey('foo', valueWhenConforms).result;
+	expect(result).toEqual(valueWhenConforms);
 });

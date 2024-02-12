@@ -1,5 +1,8 @@
-// eslint-disable-next-line no-unused-vars
+import isEqual from 'lodash.isequal';
+import result from 'lodash.result';
+
 type Condition = (T: Record<string, unknown>) => boolean;
+type OverValueFn = (T: any) => boolean;
 
 class IflessObject {
 	private _result: unknown;
@@ -22,10 +25,42 @@ class IflessObject {
 	}
 
 	whenEq(
-		comparableString: Record<string, unknown>,
+		comparable: Record<string, unknown>,
 		thenResult: unknown,
 	): IflessObject {
-		if (!this.resultIsDefined() && this._subject.a === comparableString.a) {
+		if (!this.resultIsDefined() && isEqual(this._subject, comparable)) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
+	whenPathEq(
+		path: string,
+		comparable: unknown,
+		thenResult: unknown,
+	): IflessObject {
+		if (!this.resultIsDefined() && isEqual(result(this._subject, path), comparable)) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
+	whenPathSatisfies(
+		path: string,
+		satisfiesFn: OverValueFn,
+		thenResult: string,
+	): IflessObject {
+		if (!this.resultIsDefined() && satisfiesFn(result(this._subject, path))) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
+	whenHasKey(key: string, thenResult: unknown): IflessObject {
+		if (!this.resultIsDefined() && key in this._subject) {
 			this._result = thenResult;
 		}
 

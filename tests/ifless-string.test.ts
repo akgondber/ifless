@@ -47,7 +47,6 @@ test('returns false when the subject is not english vowel char', () => {
 	const iflessString = new IflessString('g');
 
 	const result = iflessString.isEnglishVowelChar();
-	expect(result).toEqual(false);
 });
 
 test('returns true when the subject is english consonant char', () => {

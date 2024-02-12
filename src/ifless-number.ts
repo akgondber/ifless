@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 type Condition = (T: number) => boolean;
 
 class IflessNumber {

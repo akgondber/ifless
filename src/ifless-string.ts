@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 type Condition = (T: string) => boolean;
 
 export const isEnglishChar = (char: string): boolean => (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');

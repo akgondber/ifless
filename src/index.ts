@@ -7,4 +7,20 @@ export default Ifless;
 
 const ifless = new Ifless();
 
-export {ifless, IflessNumber, IflessString, IflessObject, isEnglishChar, isNumeric};
+const buildIfless = (value: any): IflessString | IflessNumber | IflessObject => {
+	if (typeof value === 'string') {
+		return new IflessString(value);
+	}
+
+	if (typeof value === 'number') {
+		return new IflessNumber(value);
+	}
+
+	if (typeof value === 'object') {
+		return new IflessObject(value as Record<string, unknown>);
+	}
+
+	throw new Error(`type ${typeof value} is not supported as a subject`);
+};
+
+export {ifless, IflessNumber, IflessString, IflessObject, isEnglishChar, isNumeric, buildIfless};
