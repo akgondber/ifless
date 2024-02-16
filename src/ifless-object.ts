@@ -1,14 +1,15 @@
 import isEqual from 'lodash.isequal';
 import result from 'lodash.result';
+import IflessSubject from './ifless-subject';
 
 type Condition = (T: Record<string, unknown>) => boolean;
 type OverValueFn = (T: any) => boolean;
 
-class IflessObject {
-	private _result: unknown;
-	private _subject: Record<string, unknown>;
+class IflessObject extends IflessSubject {
+	_subject: Record<string, unknown>;
 
 	constructor(subject: Record<string, unknown>) {
+		super(subject);
 		this._subject = subject;
 	}
 
@@ -40,7 +41,10 @@ class IflessObject {
 		comparable: unknown,
 		thenResult: unknown,
 	): IflessObject {
-		if (!this.resultIsDefined() && isEqual(result(this._subject, path), comparable)) {
+		if (
+			!this.resultIsDefined()
+			&& isEqual(result(this._subject, path), comparable)
+		) {
 			this._result = thenResult;
 		}
 
@@ -65,20 +69,6 @@ class IflessObject {
 		}
 
 		return this;
-	}
-
-	reset(): IflessObject {
-		this._result = undefined;
-
-		return this;
-	}
-
-	public get result() {
-		return this._result;
-	}
-
-	resultIsDefined(): boolean {
-		return this._result !== undefined;
 	}
 }
 

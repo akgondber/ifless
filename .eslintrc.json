@@ -16,7 +16,7 @@
 	"plugins": ["@typescript-eslint"],
 	"rules": {
 		"object-curly-newline": ["error", "never"],
-		"@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+		"@typescript-eslint/no-unused-vars": ["error", {"argsIgnorePattern": "^_"}],
 		"@typescript-eslint/no-explicit-any": ["off"]
 	}
 }

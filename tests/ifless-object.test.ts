@@ -14,40 +14,28 @@ test('sets a value when condition result is true', () => {
 test('sets a value when comparable value is equal to subject', () => {
 	const iflessObject = new IflessObject({a: 11});
 	const valueWhenConforms = 'bar';
-	const result = iflessObject.whenEq(
-		{a: 11},
-		valueWhenConforms,
-	).result;
+	const result = iflessObject.whenEq({a: 11}, valueWhenConforms).result;
 	expect(result).toEqual(valueWhenConforms);
 });
 
 test('sets a value when the subject has specified key', () => {
 	const iflessObject = new IflessObject({a: 11});
 	const valueWhenConforms = 'bar';
-	const result = iflessObject.whenHasKey(
-		'a',
-		valueWhenConforms,
-	).result;
+	const result = iflessObject.whenHasKey('a', valueWhenConforms).result;
 	expect(result).toEqual(valueWhenConforms);
 });
 
 test("does't set a value when the subject has specified key", () => {
 	const iflessObject = new IflessObject({a: 11});
 	const valueWhenConforms = 'bar';
-	const result = iflessObject.whenHasKey(
-		'b',
-		valueWhenConforms,
-	).result;
+	const result = iflessObject.whenHasKey('b', valueWhenConforms).result;
 	expect(result).toBeUndefined();
 });
 
 test("doesn't set a value when comparable value is not equal to subject", () => {
 	const iflessObject = new IflessObject({a: 11});
 	const valueWhenConforms = 'bar';
-	const result = iflessObject.whenEq(
-		{a: 14},
-		valueWhenConforms,
-	).result;
+	const result = iflessObject.whenEq({a: 14}, valueWhenConforms).result;
 	expect(result).toBeUndefined();
 });
 
@@ -72,7 +60,6 @@ test("doesn't set a value when path not satisfies a function", () => {
 	).result;
 	expect(result).toBeUndefined();
 });
-
 
 test('resets a value', () => {
 	const iflessObject = new IflessObject({a: 11});

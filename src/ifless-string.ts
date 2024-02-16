@@ -1,16 +1,21 @@
+import IflessSubject from './ifless-subject';
+
 type Condition = (T: string) => boolean;
 
-export const isEnglishChar = (char: string): boolean => (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
+export const isEnglishChar = (char: string): boolean =>
+	(char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
 
-export const isNumeric = (value: string): boolean => !Number.isNaN(value) && !Number.isNaN(Number.parseFloat(value));
+export const isNumeric = (value: string): boolean =>
+	!Number.isNaN(value) && !Number.isNaN(Number.parseFloat(value));
 
-const charIsVowel = (char: string) => ['a', 'e', 'i', 'o', 'u', 'y'].includes(char.toLowerCase());
+const charIsVowel = (char: string) =>
+	['a', 'e', 'i', 'o', 'u', 'y'].includes(char.toLowerCase());
 
-class IflessString {
-	private _result: unknown;
-	private _subject: string;
+class IflessString extends IflessSubject {
+	_subject: string;
 
 	constructor(subject: string) {
+		super(subject);
 		this._subject = subject;
 	}
 
@@ -87,7 +92,10 @@ class IflessString {
 	}
 
 	isEnglishVowelChar(): boolean {
-		if (isEnglishChar(this._subject) && charIsVowel(this._subject.toLowerCase())) {
+		if (
+			isEnglishChar(this._subject)
+			&& charIsVowel(this._subject.toLowerCase())
+		) {
 			return true;
 		}
 
@@ -95,7 +103,10 @@ class IflessString {
 	}
 
 	isEnglishConsonantChar(): boolean {
-		if (isEnglishChar(this._subject) && !charIsVowel(this._subject.toLowerCase())) {
+		if (
+			isEnglishChar(this._subject)
+			&& !charIsVowel(this._subject.toLowerCase())
+		) {
 			return true;
 		}
 
@@ -110,20 +121,6 @@ class IflessString {
 		}
 
 		return false;
-	}
-
-	reset(): IflessString {
-		this._result = undefined;
-
-		return this;
-	}
-
-	public get result() {
-		return this._result;
-	}
-
-	resultIsDefined(): boolean {
-		return this._result !== undefined;
 	}
 }
 

@@ -1,10 +1,12 @@
+import IflessSubject from './ifless-subject';
+
 type Condition = (T: number) => boolean;
 
-class IflessNumber {
-	private _result: unknown;
-	private _subject: number;
+class IflessNumber extends IflessSubject {
+	_subject: number;
 
 	constructor(subject: number) {
+		super(subject);
 		this._subject = subject;
 	}
 
@@ -69,7 +71,11 @@ class IflessNumber {
 	}
 
 	whenBetween(min: number, max: number, thenResult: unknown): IflessNumber {
-		if (!this.resultIsDefined() && this._subject >= min && this._subject <= max) {
+		if (
+			!this.resultIsDefined()
+			&& this._subject >= min
+			&& this._subject <= max
+		) {
 			this._result = thenResult;
 		}
 
@@ -98,20 +104,6 @@ class IflessNumber {
 		}
 
 		return this;
-	}
-
-	reset(): IflessNumber {
-		this._result = undefined;
-
-		return this;
-	}
-
-	public get result() {
-		return this._result;
-	}
-
-	resultIsDefined(): boolean {
-		return this._result !== undefined;
 	}
 }
 
