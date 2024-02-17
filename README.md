@@ -79,7 +79,7 @@ console.log(result2); // contains Henry and ends with Code
 import {IflessObject} from 'ifless';
 
 const iflessObject = new IflessObject({foo: 'bar'});
-const result = iflessString
+const result = iflessObject
 	.when(source => source.foo === 'qux', 'foo is qux')
 	.when(source => source.foo === 'bar', 'foo is bar')
 	.when(source => source.foo === 'corge', 'foo is corge').result;
@@ -93,8 +93,35 @@ const result2 = iflessObject2
 	.whenPathEq('foo', 'corge', 'foo is corge').result;
 console.log(result2); // foo is bar
 
-const iflessObject3 = new IflessObject({foo: 'bar', bar: {baz: 'qux'}});
-const result3 = iflessObject3
+const iflessObject3 = new IflessObject({
+	message: 'feat: symbolics keys with added optional to definition, optional tuples',
+	author: {
+		name: 'ShawnMorreau'
+	},
+	date: new Date(2023, 6, 25),
+});
+const occurenceToEmojMapping : any = {
+	0: '✨',
+	1: '🌟',
+	2: '🚀',
+};
+const result = iflessObject3
+	.whenPathSatisfies(
+		'message',
+		(value: string) => value.startsWith('feat:'),
+		'is feature',
+	)
+	.andWhenPathEq('author.name', 'ShawnMorreau', 'is feature and author is ShawnMorreau')
+	.andWhenPathSatisfies('date', (value: Date) => value > new Date(2024, 1, 1), 'is feature and author is ShawnMorreau and after 2024')
+	.otherwise('other commit')
+	.whenOverResultFn(
+		(result: string) => result.includes('is feature'),
+		(result) => `${occurenceToEmojMapping[(result.match(/and/ig) || []).length]} ${result}`)
+	.result;
+console.log(result); // 🌟 is feature and author is ShawnMorreau
+
+const iflessObject4 = new IflessObject({foo: 'bar', bar: {baz: 'qux'}});
+const result3 = iflessObject4
 	.whenPathSatisfies(
 		'foo',
 		value => value.startsWith('ro'),

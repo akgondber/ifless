@@ -22,6 +22,21 @@ test('sets a value when condition string equal to one of supplied array of strin
 	expect(result).toEqual(valueWhenConforms);
 });
 
+test('sets a value when additional conditions are passed', () => {
+	const iflessString = new IflessString('baz and qux and corge');
+	const valueWhenConforms = 'baz is included in string';
+	const bazAndQux = 'contains baz and qux';
+	const bazQuxAndCorge = 'contains baz, qux and corge';
+	const result = iflessString.when(
+							subject => subject.includes('baz'),
+							valueWhenConforms,
+						).andWhen(subject => (subject as string).includes('qux'), bazAndQux
+						).andWhen(subject => (subject as string).includes('corge'), bazQuxAndCorge
+						).result;
+	expect(result).toEqual(bazQuxAndCorge);
+});
+
+
 test('returns true when value is english alphabet char', () => {
 	const iflessString = new IflessString('a');
 

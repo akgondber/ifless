@@ -1,6 +1,7 @@
 import invoke from 'lodash.invoke';
 
 type Condition = (T: unknown) => boolean;
+type OverResultFn = (T: unknown) => IflessSubject;
 
 /**
  * Ifless class for performing ifless stuff
@@ -27,6 +28,57 @@ class IflessSubject {
 		return this.when(fn, thenResult);
 	}
 
+	andWhen(fn: Condition, thenResult: unknown): IflessSubject {
+		if (this._result && fn(this._subject)) {
+			this._result = thenResult;
+		}
+
+		return this;
+	}
+
+	whenOverResult(fn: Condition, thenResult: unknown): IflessSubject {
+		if (this._result) {
+			if (fn(this._result)) {
+				this._result = thenResult;
+			}
+		}
+
+		return this;
+	}
+
+	whenOverResultFn(fn: Condition, overResultFn: OverResultFn): IflessSubject {
+		if (this._result) {
+			if (fn(this._result)) {
+				this._result = overResultFn(this._result);
+			}
+		}
+
+		return this;
+	}
+
+	changeSubject(newSubject: any): IflessSubject {
+		this._subject = newSubject;
+		this._result = undefined;
+
+		return this;
+	}
+
+	executeWithAnyPass(): IflessSubject {
+		let anyPassed = false;
+
+		for (const key in this._registeredFunctions) {
+			if (this._registeredFunctions[key](this._subject)) {
+				anyPassed = true;
+				break;
+			} else {
+				anyPassed = false;
+			}
+		}
+
+		this._appliedStuffSucceeded = anyPassed;
+		return this;
+	}
+
 	registerFn(name: string, fn: Condition): IflessSubject {
 		this._registeredFunctions[name] = fn;
 
@@ -47,6 +99,10 @@ class IflessSubject {
 
 		this._appliedStuffSucceeded = allPassed;
 		return this;
+	}
+
+	executeRegisteredFunctions() : IflessSubject {
+		return this.execute();
 	}
 
 	executeRegisteredFn(name: string) : IflessSubject {
@@ -77,6 +133,12 @@ class IflessSubject {
 
 	reset() : IflessSubject {
 		this._result = undefined;
+
+		return this;
+	}
+
+	otherwise(otherwiseResult: any): IflessSubject {
+		this._result ||= otherwiseResult;
 
 		return this;
 	}

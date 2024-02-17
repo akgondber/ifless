@@ -1,6 +1,8 @@
 import IflessSubject from './ifless-subject';
 
 type Condition = (T: string) => boolean;
+type OverValueFn = (T: any) => boolean;
+type OverResultFn = (T: any) => any;
 
 export const isEnglishChar = (char: string): boolean =>
 	(char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z');
@@ -75,6 +77,32 @@ class IflessString extends IflessSubject {
 		if (!this.resultIsDefined() && searchStrings.includes(this._subject)) {
 			this._result = thenResult;
 		}
+
+		return this;
+	}
+
+	whenOverResult(fn: OverValueFn, thenResult: unknown): IflessString {
+		if (this._result) {
+			if (fn(this._result)) {
+				this._result = thenResult;
+			}
+		}
+
+		return this;
+	}
+
+	whenOverResultFn(fn: OverValueFn, overResultFn: OverResultFn): IflessString {
+		if (this._result) {
+			if (fn(this._result)) {
+				this._result = overResultFn(this._result);
+			}
+		}
+
+		return this;
+	}
+
+	otherwise(otherwiseResult: any): IflessString {
+		this._result ||= otherwiseResult;
 
 		return this;
 	}

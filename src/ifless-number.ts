@@ -1,6 +1,8 @@
 import IflessSubject from './ifless-subject';
 
 type Condition = (T: number) => boolean;
+type OverValueFn = (T: any) => boolean;
+type OverResultFn = (T: any) => any;
 
 class IflessNumber extends IflessSubject {
 	_subject: number;
@@ -102,6 +104,32 @@ class IflessNumber extends IflessSubject {
 		if (!this.resultIsDefined() && this._subject === 0) {
 			this._result = thenResult;
 		}
+
+		return this;
+	}
+
+	whenOverResult(fn: OverValueFn, thenResult: unknown): IflessNumber {
+		if (this._result) {
+			if (fn(this._result)) {
+				this._result = thenResult;
+			}
+		}
+
+		return this;
+	}
+
+	whenOverResultFn(fn: OverValueFn, overResultFn: OverResultFn): IflessNumber {
+		if (this._result) {
+			if (fn(this._result)) {
+				this._result = overResultFn(this._result);
+			}
+		}
+
+		return this;
+	}
+
+	otherwise(otherwiseResult: any): IflessNumber {
+		this._result ||= otherwiseResult;
 
 		return this;
 	}

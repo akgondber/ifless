@@ -1,6 +1,7 @@
 import result from 'lodash.result';
 
 type Condition = () => boolean;
+type ConditionOverFn = (T: any) => boolean;
 
 /**
  * Ifless class for performing ifless stuff
@@ -44,6 +45,10 @@ class Ifless {
 		return this;
 	}
 
+	executeRegisteredFunctions() : Ifless {
+		return this.execute();
+	}
+
 	executeRegisteredFn(name: string) : Ifless {
 		if (result(this._registeredFunctions, name)) {
 			this._appliedStuffSucceeded = true;
@@ -66,10 +71,24 @@ class Ifless {
 		return this;
 	}
 
+	whenOverResult(fn: ConditionOverFn, thenResult: unknown): Ifless {
+		if (this._result) {
+			if (fn(this._result)) {
+				this._result = thenResult;
+			}
+		}
+
+		return this;
+	}
+
 	reset() : Ifless {
 		this._result = undefined;
 
 		return this;
+	}
+
+	otherwise(otherwiseResult: any) {
+		this._result = otherwiseResult;
 	}
 
 	public get result() {
